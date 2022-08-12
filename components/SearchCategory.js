@@ -3,7 +3,7 @@ import ButtonDanger from './ButtonDanger';
 import ButtonSucces from './ButtonSucces';
 
 export default function SearchCategory(props) {
-  const { dropdown, handlerSearch, handlerReset, text, selectes } = props;
+  const { dropdown, handlerSearch, handlerReset } = props;
 
   return (
     <form className="w-full max-w-lg" onSubmit={handlerSearch}>
@@ -34,7 +34,6 @@ export default function SearchCategory(props) {
           type="text"
           placeholder="Search categories"
           aria-label="Full name"
-              value={text}
         />
         <div className=''>
        <ButtonSucces name="Search" />

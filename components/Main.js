@@ -8,25 +8,23 @@ import { getData, getDataFilter, postDataAdd } from '../pages/api/axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { getAllEmployes } from '../services/getData';
 
 export default  function Main() {
   const [persons, setPerson] = useState([]);
   const [dropdownItems, setItems] = useState([]);
-
-  const [text, setText] = useState();
-  const [selected, setSelected] = useState();
 
   useEffect(() => {
     onGetData()
   }, []);
 
   const onGetData =()=>{
-      getData().then((responce) => {
-      setPerson(responce);
-      setItems(Object.keys(responce[0]));
-    });
-  }
- 
+    getAllEmployes().then(data =>{
+      setPerson(data);
+      setItems(Object.keys(data[0]));
+
+    })
+  } 
 
   const OnSearch = async (e) => {
     e.preventDefault();
@@ -42,8 +40,6 @@ export default  function Main() {
 
   const OnReset = async (e) => {
     e.preventDefault()
-    setText('')
-    setSelected('')
     await getData().then((responce) => {
       setPerson(responce);
       setItems(Object.keys(responce[0]));
@@ -69,7 +65,7 @@ export default  function Main() {
     postDataAdd(data)
     .then((res) => {
       console.log('Data show in post - ', res);
-      onGetData()
+      // onGetData()
       const employee = res.data;
       // message.success(
       //   `Succesefuly add new employee! Name: ${employee.name}, Email: ${employee.email},  Job ${employee.job}, City ${employee.city}. `
@@ -88,8 +84,6 @@ export default  function Main() {
         dropdown={dropdownItems}
         handlerSearch={OnSearch}
         handlerReset={OnReset}
-        text={text}
-        selectes={selected}
       />
       <div className="grid grid-rows-2 grid-flow-col gap-2 py-10">
         <AddPerson  handlerAdd={onAdding}/>

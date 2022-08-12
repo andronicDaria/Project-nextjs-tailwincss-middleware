@@ -20,9 +20,6 @@ const getDataFilter = async (categorys, text) => {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({task: result})
 })
-
-
-
   const results = await request.post(null, { data });
   return await results.data;
 };
